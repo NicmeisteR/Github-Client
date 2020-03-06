@@ -1,0 +1,114 @@
+<div class="container-blue">
+    <br/>
+    <h1>
+      Projects Overview
+    </h1>
+  </div>
+  <div class="container-blue-light">
+    <p>
+      These are all of my projects with their descriptions for a brief overview, these project do not include forks. Click a card for more information.
+    </p>
+  </div>
+  
+  
+  <p>
+    Search for a project: <nb-search type="rotate-layout"></nb-search>
+    <button nbButton (click)="clearSearch()" class="close">
+      <nb-icon icon="close-square-outline"></nb-icon>
+    </button>
+  </p>
+  
+  <!-- <input type="text" style="display: none;" placeholder="Gamertag" name="gamertag" [(ngModel)]="searchValue"> -->
+  <!-- <h3>{{ value || '-' }}</h3> -->
+  
+  <section id="desktop">
+    <div class="card-row">
+      <div class="card-col"  *ngFor="let project of projects | filter :'name' : searchValue: 'includes'">
+        <nb-reveal-card>
+          <nb-card-front>
+            <nb-card size="medium" accent="primary" class="{{ project.language }}">
+              <nb-card-header>{{ project.name }} <span *ngIf="project.latest">| <small>🔥Recent!🔥</small></span></nb-card-header>
+              <nb-card-body>
+                <p>{{ project.description }}</p>
+                <p class="center"><a href="{{ project.clone_url }}" target="_blank" nbButton nbTooltip="Opens the Project page." nbTooltipPlacement="bottom" class="{{ project.language }}_btn">View Project</a></p>
+              </nb-card-body>
+              <nb-card-footer>Show Details</nb-card-footer>
+            </nb-card>
+          </nb-card-front>
+          <nb-card-back>
+            <nb-card size="medium" accent="primary" status="info">
+              <nb-card-header>Details</nb-card-header>
+              <nb-card-body>
+                <div class="center-text">
+                  <p>Created: <br/><small>{{ formatDate(project.created_at) }}</small></p>
+                  <p>Updated: <br/><small>{{ formatDate(project.updated_at) }}</small></p>
+                  <p>Pushed: <br/><small>{{ formatDate(project.pushed_at) }}</small></p>
+                  <p>Language: <br/><small>{{ project.language }}</small></p>
+                </div>
+                <p class="center"><a href="{{ project.clone_url }}" target="_blank" nbButton nbTooltip="Navigates to the Github Repo" nbTooltipPlacement="bottom">View Repository</a></p>
+              </nb-card-body>
+              <nb-card-footer>Show Description</nb-card-footer>
+            </nb-card>
+          </nb-card-back>
+        </nb-reveal-card>
+      </div>
+      <!-- <div class="card-col" id="odd">
+        <nb-reveal-card *ngFor="let project of projects">
+          <nb-card-front>
+            <nb-card size="medium" accent="{{ project.accent }}">
+              <nb-card-header>{{ project.name }}</nb-card-header>
+              <nb-card-body>
+                {{ project.description }}
+              </nb-card-body>
+              <nb-card-footer>Show Details</nb-card-footer>
+            </nb-card>
+          </nb-card-front>
+          <nb-card-back>
+            <nb-card size="medium" accent="primary" status="info">
+              <nb-card-header>Details</nb-card-header>
+              <nb-card-body>
+                {{ project.link }}
+              </nb-card-body>
+              <nb-card-footer>Show Description</nb-card-footer>
+            </nb-card>
+          </nb-card-back>
+        </nb-reveal-card>
+      </div> -->
+    </div>
+  </section>
+  <section id="mobile">
+    <div class="card-row">
+      <div class="card-col">
+        <nb-reveal-card *ngFor="let project of projects | filter :'name' : searchValue: 'includes'">
+          <nb-card-front>
+            <nb-card size="medium" accent="primary" class="{{ project.language }}">
+              <nb-card-header>{{ project.name }}</nb-card-header>
+              <nb-card-body>
+                <p>{{ project.description }}</p>
+                <p class="center"><a href="{{ project.clone_url }}" target="_blank" nbButton nbTooltip="Opens the Project page." nbTooltipPlacement="bottom" class="{{ project.language }}_btn">View Project</a></p>
+              </nb-card-body>
+              <nb-card-footer>Show Details</nb-card-footer>
+            </nb-card>
+          </nb-card-front>
+          <nb-card-back>
+            <nb-card size="medium" accent="primary" status="info">
+              <nb-card-header>Details</nb-card-header>
+              <nb-card-body>
+                <div class="center-text">
+                  <p>Created: <br/><small>{{ formatDate(project.created_at) }}</small></p>
+                  <p>Updated: <br/><small>{{ formatDate(project.updated_at) }}</small></p>
+                  <p>Pushed: <br/><small>{{ formatDate(project.pushed_at) }}</small></p>
+                  <p>Language: <br/><small>{{ project.language }}</small></p>
+                </div>
+                <p class="center"><a href="{{ project.clone_url }}" target="_blank" nbButton nbTooltip="Navigates to the Github Repo" nbTooltipPlacement="bottom">View Repository</a></p>
+              </nb-card-body>
+              <nb-card-footer>Show Description</nb-card-footer>
+            </nb-card>
+          </nb-card-back>
+        </nb-reveal-card>
+      </div>
+    </div>
+  </section>
+  
+  
+  

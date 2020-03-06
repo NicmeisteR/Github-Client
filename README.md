@@ -1,3 +1,10 @@
+Here is the coding test I mentioned:
+* Build a Github client showing the latest items from your home feed for a given string. 
+* You can choose the tech - there is no 1 right way. Keep it simple.
+* Also, give the option to mark as Read Later, and give the ability to see these items later. 
+* Feel free to ask as you go. 
+* That's it! Have fun. We don't expect you to spend more than a day of your time on this.
+
 # GithubClient
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.5.
