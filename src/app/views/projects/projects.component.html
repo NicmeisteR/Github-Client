@@ -1,5 +1,4 @@
 <div class="container-blue">
-    <br/>
     <h1>
       Projects Overview
     </h1>
@@ -9,25 +8,45 @@
       These are all of my projects with their descriptions for a brief overview, these project do not include forks. Click a card for more information.
     </p>
   </div>
-  
-  
+
+  <!-- TODO: Add the ability to search for and save any users projects. -->
+  <!-- <p>
+    Search for a user: <nb-search type="rotate-layout"></nb-search>
+    <button nbButton (click)="clearSearch()" class="close">
+      <nb-icon icon="close-square-outline"></nb-icon>
+    </button>
+  </p> -->
+
   <p>
     Search for a project: <nb-search type="rotate-layout"></nb-search>
     <button nbButton (click)="clearSearch()" class="close">
       <nb-icon icon="close-square-outline"></nb-icon>
     </button>
   </p>
-  
+
   <!-- <input type="text" style="display: none;" placeholder="Gamertag" name="gamertag" [(ngModel)]="searchValue"> -->
   <!-- <h3>{{ value || '-' }}</h3> -->
-  
+
   <section id="desktop">
     <div class="card-row">
       <div class="card-col"  *ngFor="let project of projects | filter :'name' : searchValue: 'includes'">
         <nb-reveal-card>
           <nb-card-front>
             <nb-card size="medium" accent="primary" class="{{ project.language }}">
-              <nb-card-header>{{ project.name }} <span *ngIf="project.latest">| <small>🔥Recent!🔥</small></span></nb-card-header>
+              <nb-card-header>
+                {{ project.name }} <span *ngIf="project.latest">| <small>🔥Recent!🔥</small></span>
+
+                <span *ngIf="project.saved; else notSaved" style="float: right;">
+                  <button class="btn-saved" (click)="readLater(project, false)"><nb-icon icon="bookmark" class="icon-save"></nb-icon></button>
+                </span>
+
+                <ng-template #notSaved>
+                  <span style="float: right;">
+                    <button class="btn-save" (click)="readLater(project, true)"><nb-icon icon="bookmark-outline" class="icon-save"></nb-icon></button>
+                  </span>
+                </ng-template>
+
+              </nb-card-header>
               <nb-card-body>
                 <p>{{ project.description }}</p>
                 <p class="center"><a href="{{ project.clone_url }}" target="_blank" nbButton nbTooltip="Opens the Project page." nbTooltipPlacement="bottom" class="{{ project.language }}_btn">View Project</a></p>
@@ -109,6 +128,5 @@
       </div>
     </div>
   </section>
-  
-  
-  
+
+

@@ -41,6 +41,7 @@ import { FooterComponent } from './partials/footer/footer.component';
 import { HeaderComponent } from './partials/header/header.component';
 import { MenuComponent } from './partials/menu/menu.component';
 import { AboutComponent } from './views/about/about.component';
+import { ReadingListComponent } from './views/reading-list/reading-list.component';
 
 // ██████╗  ██████╗ ██╗   ██╗████████╗███████╗███████╗
 // ██╔══██╗██╔═══██╗██║   ██║╚══██╔══╝██╔════╝██╔════╝
@@ -66,6 +67,7 @@ const routes: Routes = [
     HeaderComponent,
     MenuComponent,
     AboutComponent,
+    ReadingListComponent,
   ],
   imports: [
     BrowserModule,

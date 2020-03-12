@@ -10,10 +10,21 @@ import { fixName, titleCase } from '../../services/helpers.service';
 })
 export class ProjectsComponent implements OnInit {
 
+  savedProjects;
+
   constructor(
     private githubService: GithubService,
     private searchService: NbSearchService
     ) {
+
+      const savedProjects = [
+        "Github Client",
+        "Halo Caster Toolkit",
+        "Halo Streamer Tools"
+      ];
+
+      this.savedProjects = savedProjects;
+
       this.githubService.getRepos().subscribe((res : Array<any>)=>{
         res.filter(item => {
           if(item.fork === false){
@@ -23,6 +34,12 @@ export class ProjectsComponent implements OnInit {
       });
       // Sort the projects array by last commit.
       this.projects.sort((a, b) => new Date(b.pushed_at).getTime() - new Date(a.pushed_at).getTime());
+      
+      savedProjects.forEach(element => {
+        let savedProjects = this.projects.find(object => object.name === element);
+        savedProjects.saved = true;
+      });
+      
       this.projects[0].latest = true;
     });
       
@@ -60,6 +77,13 @@ export class ProjectsComponent implements OnInit {
   formatDate(date){
     var ts = new Date(date);
     return ts.toDateString()
+  }
+
+  readLater(project, state){
+    console.log(project);
+    project.saved = state;
+    this.savedProjects.push(project.name)
+    
   }
 
   ngOnInit(): void {

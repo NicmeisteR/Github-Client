@@ -1,3 +1,7 @@
+h1 {
+    margin-top: 0;
+}
+
 .bg-grey {
     padding-top: 8px;
     background: #3b3b3b!important;
@@ -107,4 +111,33 @@
     // border-top-color: #f16529 !important;
     background-color: #563d7c !important;
     border-color: #563d7c !important;
+}
+
+.btn-save {
+    background: transparent;
+    border: none;
+
+}
+
+.btn-save:hover {
+    .icon-save {
+        color: red !important;
+    }
+}
+
+
+.btn-saved {
+    background: transparent;
+    border: none;
+
+    .icon-save {
+        color: red !important;
+    }
+}
+
+.btn-saved:hover {
+
+    .icon-save {
+        color: black !important;
+    }
 }
