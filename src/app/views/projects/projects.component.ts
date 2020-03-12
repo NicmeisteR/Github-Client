@@ -10,20 +10,23 @@ import { fixName, titleCase } from '../../services/helpers.service';
 })
 export class ProjectsComponent implements OnInit {
 
-  savedProjects;
+  savedProjects = JSON.parse(localStorage.getItem('savedItems'));
 
   constructor(
     private githubService: GithubService,
     private searchService: NbSearchService
     ) {
 
-      const savedProjects = [
-        "Github Client",
-        "Halo Caster Toolkit",
-        "Halo Streamer Tools"
-      ];
+      // const savedProjects = [
+      //   "Github Client",
+      //   "Halo Caster Toolkit",
+      //   "Halo Streamer Tools"
+      // ];
 
-      this.savedProjects = savedProjects;
+      // savedProjects = 
+
+      this.savedProjects = JSON.parse(localStorage.getItem('savedItems'));
+      localStorage.setItem('savedItems', JSON.stringify(this.savedProjects));
 
       this.githubService.getRepos().subscribe((res : Array<any>)=>{
         res.filter(item => {
@@ -35,10 +38,12 @@ export class ProjectsComponent implements OnInit {
       // Sort the projects array by last commit.
       this.projects.sort((a, b) => new Date(b.pushed_at).getTime() - new Date(a.pushed_at).getTime());
       
-      savedProjects.forEach(element => {
-        let savedProjects = this.projects.find(object => object.name === element);
-        savedProjects.saved = true;
-      });
+      if(this.savedProjects != null){
+        this.savedProjects.forEach(element => {
+          let savedProjects = this.projects.find(object => object.name === element);
+          savedProjects.saved = true;
+        });
+      }
       
       this.projects[0].latest = true;
     });
@@ -82,8 +87,17 @@ export class ProjectsComponent implements OnInit {
   readLater(project, state){
     console.log(project);
     project.saved = state;
-    this.savedProjects.push(project.name)
-    
+    if(state === false){ 
+      let index =  this.savedProjects.indexOf(project.name);
+      if (index > -1) {
+        this.savedProjects.splice(project.name, 1);
+      }
+    }
+    else{
+      this.savedProjects = this.savedProjects || [];
+      this.savedProjects.push(project.name);
+    }
+    localStorage.setItem('savedItems', JSON.stringify(this.savedProjects));
   }
 
   ngOnInit(): void {

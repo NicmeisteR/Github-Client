@@ -7,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReadingListComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+
+   }
+
+  projects = JSON.parse(localStorage.getItem('savedItems'));
 
   ngOnInit(): void {
+    console.log(this.projects);
+    
   }
 
 }
