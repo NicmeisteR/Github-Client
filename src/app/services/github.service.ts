@@ -22,7 +22,7 @@ export class GithubService {
 
   getRepos() {
     return this.http
-      .get(`https://api.github.com/users/nicmeister/repos`, this.headers)
+      .get(`https://api.github.com/users/nicmeister/repos`)
       .pipe(
         map(data => {
           return data;
