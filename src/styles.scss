@@ -5,56 +5,6 @@
 @include nb-install() {
   @include nb-theme-global();
 };
-/* You can add global styles to this file, and also import other style files */
-// body {
-//     background: #333333 !important;
-//     color: #ffffff !important;
-// }
-
-// .bg-dark {
-//     background: #3b3b3b !important;
-//     border-bottom: 4px rgba(0, 208, 208, 0.8) solid !important;
-//     box-shadow: 0px 8px 5px rgba(0, 208, 208, 0.6);
-// }
-
-// .nav-link {
-//     color: #ffffff !important;
-// }
-
-// .nav-link.active {
-//     color: rgba(0, 208, 208, 0.8) !important;
-// }
-
-// .navbar-brand {
-//     color: rgb(0, 208, 208) !important;
-// }
-
-// .container-blue {
-//     background: #3b3b3b !important;
-//     border-bottom: 4px rgba(0, 208, 208, 0.8) solid !important;
-//     box-shadow: 0px 8px 5px rgba(0, 208, 208, 0.6);
-
-//     h1 {
-//         margin-left:20px;
-//         padding-bottom: 20px;
-//     }
-// }
-
-// .container-blue-light {
-//     margin-top: 10px;
-//     background: rgba(0, 208, 208, 0.2) !important;
-
-//     p {
-//         margin-left:20px;
-//         margin-right:20px;
-//         padding-bottom: 20px;
-//         padding-top: 20px;
-//     }
-// }
-
-// small {
-//     color: rgba(13, 143, 148, 1);
-// }
 
 /* width */
 ::-webkit-scrollbar {
@@ -76,14 +26,6 @@
     background: #b18aff; 
 }
 
-// .nb-theme-cyan nb-sidebar{
-//     width: 14rem !important;
-// }
-
-// .nb-theme-cyan nb-sidebar .main-container {
-//     width: 14rem !important;
-// }
-
 #mobile {
     display: none;
 }
@@ -97,15 +39,3 @@
         display: inherit;
     }
 }
-
-// .main-container {
-//     background: linear-gradient(245deg, #0CB2B2 0%, rgba(145,70,255,1) 100%) !important;
-// }
-
-// nav {
-//     background: linear-gradient(245deg, #0CB2B2 0%, #a16eff 100%) !important;
-// }
-
-// tspan {
-//     fill: white !important;
-// }
