@@ -1,0 +1,23 @@
+.row {
+    display: flex;
+    margin: 0 -0.5rem;
+    overflow-x: scroll;
+}
+  
+.col {
+    flex: 1 0 calc(50% - 1rem);
+    // flex: 1 0 calc(25% - 1rem);
+    margin: 0 0.5rem;
+}
+
+.TypeScript {
+    color: #007acc !important;
+}
+
+.JavaScript {
+    color: #f0Db47 !important;
+}
+
+.HTML {
+    color: #f16529 !important;
+}

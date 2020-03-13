@@ -43,11 +43,11 @@ export class MenuComponent {
   ];
 
   items = [
-    {
-      title: 'Profile',
-      icon: 'person-outline',
-      link: ["/home"],
-    },
+    // {
+    //   title: 'Profile',
+    //   icon: 'person-outline',
+    //   link: ["/home"],
+    // },
     {
       title: 'Projects',
       icon: 'archive-outline',

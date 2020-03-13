@@ -4,7 +4,7 @@
 | Feature        | Status  |
 | -------------- |:-------:|
 | Show the latest items from your home feed for a given string. | [✅] |
-| Mark as Read Later, and give the ability to see these items later. |  [🚧] |
+| Mark as Read Later, and give the ability to see these items later. |  [✅] |
 
 ## Optional:
 | Feature        | Status  |
@@ -15,8 +15,8 @@
 
 # TODO:
 
-    TODO: Add the ability to search for and save any users projects.
-    TODO: Add api or local storage driven saved project functionality.
+    TODO: Add the ability to search for and save any users projects. 🚧
+    TODO: Add api or local storage driven saved project functionality. ✅
 
 # Github Client
 

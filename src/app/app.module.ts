@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FilterPipe } from './pipes/filter.pipe';
+import { MarkdownModule } from 'ngx-markdown'; 
 
 // ███╗   ██╗███████╗██████╗ ██╗   ██╗██╗      █████╗ ██████╗ 
 // ████╗  ██║██╔════╝██╔══██╗██║   ██║██║     ██╔══██╗██╔══██╗
@@ -24,7 +25,9 @@ import {
   NbSearchModule,
   NbIconModule,
   NbTooltipModule,
-  NbAccordionModule
+  NbAccordionModule,
+  NbBadgeModule,
+  NbActionsModule,
 } from '@nebular/theme';
 
 import { NbEvaIconsModule } from '@nebular/eva-icons';
@@ -42,6 +45,7 @@ import { HeaderComponent } from './partials/header/header.component';
 import { MenuComponent } from './partials/menu/menu.component';
 import { AboutComponent } from './views/about/about.component';
 import { ReadingListComponent } from './views/reading-list/reading-list.component';
+import { ProjectComponent } from './partials/project/project.component';
 
 // ██████╗  ██████╗ ██╗   ██╗████████╗███████╗███████╗
 // ██╔══██╗██╔═══██╗██║   ██║╚══██╔══╝██╔════╝██╔════╝
@@ -51,12 +55,12 @@ import { ReadingListComponent } from './views/reading-list/reading-list.componen
 // ╚═╝  ╚═╝ ╚═════╝  ╚═════╝    ╚═╝   ╚══════╝╚══════╝
 //                                                    
 const routes: Routes = [
-  // { path: '', component: HomeComponent, pathMatch: 'full'},
+  { path: '', component: ProjectsComponent, pathMatch: 'full'},
   // { path: 'home', component: HomeComponent},
   { path: 'about', component: AboutComponent},
   { path: 'projects', component: ProjectsComponent},
   { path: 'reading-list', component: ReadingListComponent},
-  // { path: 'projects/:id', component: ProjectComponent}
+  { path: 'projects/:id', component: ProjectComponent}
 ];
 
 @NgModule({
@@ -69,6 +73,7 @@ const routes: Routes = [
     MenuComponent,
     AboutComponent,
     ReadingListComponent,
+    ProjectComponent,
   ],
   imports: [
     BrowserModule,
@@ -87,7 +92,10 @@ const routes: Routes = [
     NbSearchModule,
     NbIconModule,
     NbTooltipModule,
-    NbAccordionModule
+    NbAccordionModule,
+    NbBadgeModule,
+    NbActionsModule,
+    MarkdownModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]

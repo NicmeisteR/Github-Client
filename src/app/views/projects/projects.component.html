@@ -18,14 +18,11 @@
   </p> -->
 
   <p>
-    Search for a project: <nb-search type="rotate-layout"></nb-search>
+    <nb-search type="rotate-layout" nbTooltip="Keyword search" nbTooltipPlacement="bottom"></nb-search>
     <button nbButton (click)="clearSearch()" class="close">
-      <nb-icon icon="close-square-outline"></nb-icon>
+      <nb-icon icon="close-square-outline" nbTooltip="Clear search" nbTooltipPlacement="bottom"></nb-icon>
     </button>
   </p>
-
-  <!-- <input type="text" style="display: none;" placeholder="Gamertag" name="gamertag" [(ngModel)]="searchValue"> -->
-  <!-- <h3>{{ value || '-' }}</h3> -->
 
   <section id="desktop">
     <div class="card-row">
@@ -33,9 +30,9 @@
         <nb-reveal-card>
           <nb-card-front>
             <nb-card size="medium" accent="primary" class="{{ project.language }}">
-              <nb-card-header>
-                {{ project.name }} <span *ngIf="project.latest">| <small>🔥Recent!🔥</small></span>
-
+              <nb-card-header style="position: relative;">
+                {{ project.name }} <span *ngIf="project.latest"><nb-badge text="new" status="success" position="center center" class="badge"></nb-badge></span>
+                
                 <span *ngIf="project.saved; else notSaved" style="float: right;">
                   <button class="btn-saved" (click)="readLater(project, false)"><nb-icon icon="bookmark" class="icon-save"></nb-icon></button>
                 </span>
@@ -49,7 +46,7 @@
               </nb-card-header>
               <nb-card-body>
                 <p>{{ project.description }}</p>
-                <p class="center"><a href="{{ project.clone_url }}" target="_blank" nbButton nbTooltip="Opens the Project page." nbTooltipPlacement="bottom" class="{{ project.language }}_btn">View Project</a></p>
+                <!-- <p class="center"><a href="{{ project.html_url }}" target="_blank" nbButton nbTooltip="Opens the Project page." nbTooltipPlacement="bottom" class="{{ project.language }}_btn">View Project</a></p> -->
               </nb-card-body>
               <nb-card-footer>Show Details</nb-card-footer>
             </nb-card>
@@ -59,40 +56,31 @@
               <nb-card-header>Details</nb-card-header>
               <nb-card-body>
                 <div class="center-text">
-                  <p>Created: <br/><small>{{ formatDate(project.created_at) }}</small></p>
-                  <p>Updated: <br/><small>{{ formatDate(project.updated_at) }}</small></p>
-                  <p>Pushed: <br/><small>{{ formatDate(project.pushed_at) }}</small></p>
-                  <p>Language: <br/><small>{{ project.language }}</small></p>
+                  <p class="no-padding" style="margin-top: 2px"><small class="underline">Created:</small></p>
+                  <p class="reduced-padding"><span>{{ formatDate(project.created_at) }}</span></p>
+                  <p class="no-padding"><small class="underline">Updated:</small></p>
+                  <p class="reduced-padding"><span>{{ formatDate(project.updated_at) }}</span></p>
+                  <p class="no-padding"><small class="underline">Pushed:</small></p>
+                  <p class="reduced-padding"><span>{{ formatDate(project.pushed_at) }}</span></p>
+                  <p class="no-padding"><small class="underline">Language:</small></p>
+                  <p class="reduced-padding"><span>{{ project.language }}</span></p>
                 </div>
-                <p class="center"><a href="{{ project.clone_url }}" target="_blank" nbButton nbTooltip="Navigates to the Github Repo" nbTooltipPlacement="bottom">View Repository</a></p>
+                <div class="row" style="display: flex; flex-direction: row; justify-content: space-evenly">
+                  <div class="col">
+                    <p class="center"><a href="{{ project.html_url }}" target="_blank" nbButton nbTooltip="Navigates to the Github Repo" nbTooltipPlacement="bottom" status="info">View</a></p>
+                  </div>
+                  <div class="col">
+                    <p class="center">
+                      <button nbButton (click)="copyCloneUrl(project.clone_url)" status="success" nbTooltip="Copies Repo URL" nbTooltipPlacement="bottom">Clone</button>
+                    </p>
+                  </div>
+                </div>
               </nb-card-body>
               <nb-card-footer>Show Description</nb-card-footer>
             </nb-card>
           </nb-card-back>
         </nb-reveal-card>
       </div>
-      <!-- <div class="card-col" id="odd">
-        <nb-reveal-card *ngFor="let project of projects">
-          <nb-card-front>
-            <nb-card size="medium" accent="{{ project.accent }}">
-              <nb-card-header>{{ project.name }}</nb-card-header>
-              <nb-card-body>
-                {{ project.description }}
-              </nb-card-body>
-              <nb-card-footer>Show Details</nb-card-footer>
-            </nb-card>
-          </nb-card-front>
-          <nb-card-back>
-            <nb-card size="medium" accent="primary" status="info">
-              <nb-card-header>Details</nb-card-header>
-              <nb-card-body>
-                {{ project.link }}
-              </nb-card-body>
-              <nb-card-footer>Show Description</nb-card-footer>
-            </nb-card>
-          </nb-card-back>
-        </nb-reveal-card>
-      </div> -->
     </div>
   </section>
   <section id="mobile">
@@ -101,10 +89,23 @@
         <nb-reveal-card *ngFor="let project of projects | filter :'name' : searchValue: 'includes'">
           <nb-card-front>
             <nb-card size="medium" accent="primary" class="{{ project.language }}">
-              <nb-card-header>{{ project.name }}</nb-card-header>
+              <nb-card-header style="position: relative;">
+                {{ project.name }} <span *ngIf="project.latest"><nb-badge text="new" status="success" position="center center" class="badge"></nb-badge></span>
+                
+                <span *ngIf="project.saved; else notSaved" style="float: right;">
+                  <button class="btn-saved" (click)="readLater(project, false)"><nb-icon icon="bookmark" class="icon-save"></nb-icon></button>
+                </span>
+
+                <ng-template #notSaved>
+                  <span style="float: right;">
+                    <button class="btn-save" (click)="readLater(project, true)"><nb-icon icon="bookmark-outline" class="icon-save"></nb-icon></button>
+                  </span>
+                </ng-template>
+
+              </nb-card-header>
               <nb-card-body>
                 <p>{{ project.description }}</p>
-                <p class="center"><a href="{{ project.clone_url }}" target="_blank" nbButton nbTooltip="Opens the Project page." nbTooltipPlacement="bottom" class="{{ project.language }}_btn">View Project</a></p>
+                <!-- <p class="center"><a href="{{ project.clone_url }}" target="_blank" nbButton nbTooltip="Opens the Project page." nbTooltipPlacement="bottom" class="{{ project.language }}_btn">View Project</a></p> -->
               </nb-card-body>
               <nb-card-footer>Show Details</nb-card-footer>
             </nb-card>
@@ -114,12 +115,25 @@
               <nb-card-header>Details</nb-card-header>
               <nb-card-body>
                 <div class="center-text">
-                  <p>Created: <br/><small>{{ formatDate(project.created_at) }}</small></p>
-                  <p>Updated: <br/><small>{{ formatDate(project.updated_at) }}</small></p>
-                  <p>Pushed: <br/><small>{{ formatDate(project.pushed_at) }}</small></p>
-                  <p>Language: <br/><small>{{ project.language }}</small></p>
+                  <p class="no-padding" style="margin-top: 2px"><small class="underline">Created:</small></p>
+                  <p class="reduced-padding"><span>{{ formatDate(project.created_at) }}</span></p>
+                  <p class="no-padding"><small class="underline">Updated:</small></p>
+                  <p class="reduced-padding"><span>{{ formatDate(project.updated_at) }}</span></p>
+                  <p class="no-padding"><small class="underline">Pushed:</small></p>
+                  <p class="reduced-padding"><span>{{ formatDate(project.pushed_at) }}</span></p>
+                  <p class="no-padding"><small class="underline">Language:</small></p>
+                  <p class="reduced-padding"><span>{{ project.language }}</span></p>
                 </div>
-                <p class="center"><a href="{{ project.clone_url }}" target="_blank" nbButton nbTooltip="Navigates to the Github Repo" nbTooltipPlacement="bottom">View Repository</a></p>
+                <div class="row" style="display: flex; flex-direction: row; justify-content: space-evenly">
+                  <div class="col">
+                    <p class="center"><a href="{{ project.html_url }}" target="_blank" nbButton nbTooltip="Navigates to the Github Repo" nbTooltipPlacement="bottom" status="info">View</a></p>
+                  </div>
+                  <div class="col">
+                    <p class="center">
+                      <button nbButton (click)="copyCloneUrl(project.clone_url)" status="success" nbTooltip="Copies Repo URL" nbTooltipPlacement="bottom">Clone</button>
+                    </p>
+                  </div>
+                </div>
               </nb-card-body>
               <nb-card-footer>Show Description</nb-card-footer>
             </nb-card>
@@ -128,5 +142,3 @@
       </div>
     </div>
   </section>
-
-

@@ -1,0 +1,23 @@
+<h1>
+    {{ project }} <small>Project</small>
+  </h1>
+  <nb-accordion> 
+    <nb-accordion-item>
+      <nb-accordion-item-header>Description</nb-accordion-item-header>
+      <nb-accordion-item-body *ngIf="projectInfo">
+        {{ projectInfo.description }}
+      </nb-accordion-item-body>
+    </nb-accordion-item>
+    <nb-accordion-item>
+      <nb-accordion-item-header>Languages</nb-accordion-item-header>
+      <nb-accordion-item-body>
+            <p *ngFor="let project of projectLanguages"> {{ project.name }}: <small class="{{ project.name }}">{{ project.value }}</small></p>
+      </nb-accordion-item-body>
+    </nb-accordion-item>
+    <nb-accordion-item>
+      <nb-accordion-item-header>Readme</nb-accordion-item-header>
+      <nb-accordion-item-body>
+        <markdown [data]="readme"></markdown>
+      </nb-accordion-item-body>
+    </nb-accordion-item>
+  </nb-accordion>
