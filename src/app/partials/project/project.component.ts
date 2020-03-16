@@ -17,51 +17,15 @@ export class ProjectComponent implements OnInit {
     private router: Router,
     private githubService: GithubService,
   ) {
-    this.project = this.router.events.subscribe((evt) => {
 
+    // Make use of ActivatedRoute route to target the requested project.
+    this.project = this.router.events.subscribe((evt) => {
       if (evt instanceof ActivationStart) {
-        this.project = fixName(evt.snapshot.params.id);
-        this.githubService.getRepoReadme(evt.snapshot.params.id).subscribe((res : any)=>{
-          this.readme = atob(res.content);
-        });
-        this.githubService.getRepoInfo(evt.snapshot.params.id).subscribe((res : any)=>{
-          this.projectInfo = res;
-        });
-        // this.githubService.getCommitHistory(evt.snapshot.params.id).subscribe((res : res)=>{
-        //   // this.projectInfo = res;
-        // });
-        this.githubService.getRepoLanguage(evt.snapshot.params.id).subscribe((res : any)=>{
-          let projectLanguages = [];
-          Object.keys(res).forEach(function(key){
-            projectLanguages.push({
-              "name": key,
-              "value": res[key]
-            })
-          });
-          this.projectLanguages = projectLanguages;
-          this.colorScheme.domain = setColors(projectLanguages);
-        });
+        this.getProjectInfo(this.route.snapshot.params['id']);
       }
     });
 
-    this.project = fixName(this.route.snapshot.params['id']);
-    this.githubService.getRepoReadme(this.route.snapshot.params['id']).subscribe((res : any)=>{
-      this.readme = atob(res.content);
-    });
-    this.githubService.getRepoInfo(this.route.snapshot.params['id']).subscribe((res : any)=>{
-      this.projectInfo = res;
-    });
-    this.githubService.getRepoLanguage(this.route.snapshot.params['id']).subscribe((res : any)=>{
-      let projectLanguages = [];
-      Object.keys(res).forEach(function(key){
-        projectLanguages.push({
-          "name": key,
-          "value": res[key]
-        })
-      });
-      this.projectLanguages = projectLanguages;
-    });
-    this.colorScheme.domain = setColors(this.projectLanguages);
+    this.getProjectInfo(this.route.snapshot.params['id']);
   }
 
   project: any;
@@ -69,12 +33,45 @@ export class ProjectComponent implements OnInit {
   projectInfo: any;
   projectLanguages = [];
 
-  projectDetails = [{
-    "name": "test name",
-    "description": "test"
-  }]
-
   ngOnInit() {}
+
+  getProjectInfo(repoName){
+    // Call the fixName function to replace dashes with spaces for proper names
+    this.project = fixName(repoName);
+
+    this.getRepoReadme(repoName);
+    this.getRepoInfo(repoName);
+    this.getRepoLanguage(repoName);
+    this.colorScheme.domain = setColors(this.projectLanguages);
+  }
+
+  getRepoReadme(repoName){
+    // Retrieve readme from Repo to render as HTML 
+    this.githubService.getRepoReadme(repoName).subscribe((res : any)=>{
+      this.readme = atob(res.content);
+    });
+  }
+
+  getRepoInfo(repoName){
+    // API Call to get the information of the repo
+    this.githubService.getRepoInfo(repoName).subscribe((res : any)=>{
+      this.projectInfo = res;
+    });
+  }
+
+  getRepoLanguage(repoName){
+    // Retrieve the languages used in the repo
+    this.githubService.getRepoLanguage(repoName).subscribe((res : any)=>{
+      let projectLanguages = [];
+      Object.keys(res).forEach((key) => {
+        projectLanguages.push({
+          "name": key,
+          "value": res[key]
+        })
+      });
+      this.projectLanguages = projectLanguages;
+    });
+  }
 
   ngOnDestroy(): void {
     // this.project.unsubscribe();
@@ -87,5 +84,4 @@ export class ProjectComponent implements OnInit {
   colorScheme = {
     domain: []
   };
-
 }

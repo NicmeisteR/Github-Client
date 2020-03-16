@@ -17,7 +17,7 @@ export class GithubService {
 
   headers = {
     headers: new HttpHeaders()
-      .set('Authorization', "token 5c932a3e9f0067ff093db65c4f1c75ab29755c4a")
+      .set('Authorization', "token 75122e983e1123c665ff0f9828e4cd1c6dcd57e3")
   };
 
   getRepos() {
