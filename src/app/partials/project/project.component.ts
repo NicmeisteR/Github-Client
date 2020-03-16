@@ -38,8 +38,9 @@ export class ProjectComponent implements OnInit {
   getProjectInfo(repoName){
     // Call the fixName function to replace dashes with spaces for proper names
     this.project = fixName(repoName);
-
+    // Retrieve Readme as Base64
     this.getRepoReadme(repoName);
+    // Get Repo Info
     this.getRepoInfo(repoName);
     this.getRepoLanguage(repoName);
     this.colorScheme.domain = setColors(this.projectLanguages);
