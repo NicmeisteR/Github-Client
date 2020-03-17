@@ -8,6 +8,12 @@ export class HelpersService {
   constructor() { }
 }
 
+/**
+ * This fixes the project name by removing dashes.
+ *
+ * @param {string} name
+ * @returns name
+ */
 export function fixName(name) {
   if (name.includes("-")) {
       return name.split('-').join(' ');
@@ -20,6 +26,12 @@ export function fixName(name) {
   }
 }
 
+/**
+ * This returns a fixed name for the project as title case.
+ *
+ * @param {string} string
+ * @returns string
+ */
 export function titleCase(string) {
   let sentence = string.toLowerCase().split(" ");
   for (let i = 0; i < sentence.length; i++) {
@@ -28,6 +40,12 @@ export function titleCase(string) {
   return sentence.join(" ");
 }
 
+/**
+ * This sets the style colors for the project based on language.
+ *
+ * @param {string} projectLanguages
+ * @returns colors
+ */
 export function setColors(projectLanguages) {
   let colors = [];
   
