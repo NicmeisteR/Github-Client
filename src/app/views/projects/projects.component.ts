@@ -21,8 +21,7 @@ export class ProjectsComponent implements OnInit {
       this.savedProjects = JSON.parse(localStorage.getItem('savedItems'));
       this.savedProjectsObject = JSON.parse(localStorage.getItem('savedItemsObject'));
 
-      localStorage.setItem('savedItems', JSON.stringify(this.savedProjects));
-      localStorage.setItem('savedItemsObject', JSON.stringify(this.savedProjectsObject));
+      this.saveToLocalStorage(this.savedProjects, this.savedProjectsObject);
 
       this.githubService.getRepos().subscribe((res : Array<any>)=>{
         res.filter(item => {
@@ -66,7 +65,7 @@ export class ProjectsComponent implements OnInit {
   }
 
   formatDate(date){
-    var ts = new Date(date);
+    let ts = new Date(date);
     return ts.toDateString()
   }
 
@@ -88,14 +87,18 @@ export class ProjectsComponent implements OnInit {
       this.savedProjectsObject = this.savedProjectsObject || [];
       this.savedProjectsObject.push(project);
     }
-    localStorage.setItem('savedItems', JSON.stringify(this.savedProjects));
-    localStorage.setItem('savedItemsObject', JSON.stringify(this.savedProjectsObject));
+    this.saveToLocalStorage(this.savedProjects, this.savedProjectsObject);
   }
 
   copyCloneUrl(url){
     navigator.clipboard.writeText(url).then(() => {
       alert('Clone URL copied!');
     });
+  }
+
+  saveToLocalStorage(savedProjects, savedProjectsObject){
+    localStorage.setItem('savedItems', JSON.stringify(savedProjects));
+    localStorage.setItem('savedItemsObject', JSON.stringify(savedProjectsObject));
   }
 
   ngOnInit(): void {

@@ -14,8 +14,7 @@ export class ReadingListComponent implements OnInit {
     this.savedProjects = JSON.parse(localStorage.getItem('savedItems'));
     this.savedProjectsObject = JSON.parse(localStorage.getItem('savedItemsObject'));
 
-    localStorage.setItem('savedItems', JSON.stringify(this.savedProjects));
-    localStorage.setItem('savedItemsObject', JSON.stringify(this.savedProjectsObject));
+    this.saveToLocalStorage(this.savedProjects, this.savedProjectsObject);
 
     this.searchService.onSearchSubmit()
     .subscribe((data: any) => {
@@ -54,8 +53,13 @@ export class ReadingListComponent implements OnInit {
       this.savedProjectsObject = this.savedProjectsObject || [];
       this.savedProjectsObject.push(project);
     }
-    localStorage.setItem('savedItems', JSON.stringify(this.savedProjects));
-    localStorage.setItem('savedItemsObject', JSON.stringify(this.savedProjectsObject));
+
+    this.saveToLocalStorage(this.savedProjects, this.savedProjectsObject);
+  }
+
+  saveToLocalStorage(savedProjects, savedProjectsObject){
+    localStorage.setItem('savedItems', JSON.stringify(savedProjects));
+    localStorage.setItem('savedItemsObject', JSON.stringify(savedProjectsObject));
   }
 
   copyCloneUrl(url){
